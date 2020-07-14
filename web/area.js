@@ -128,3 +128,21 @@ function bodyMoveOn()  //运动时身体的前进
     gameArea[snake[0].y][snake[0].x].isHead = true;
     snake[0].getHTML().style.backgroundColor = headColor;
 }
+
+
+function upGrade()
+{
+    scores += 1;
+    document.getElementById("scores").value = scores;
+
+    grade = Math.floor(scores/3) + 1;
+    document.getElementById("grade").value = grade;
+    if (grade>=12 || topSpeedMode)  //12级满级
+        document.getElementById("grade").value = "12!";
+}
+
+function gameOver()
+{
+    clearInterval(setIntervalReturn);
+    alert("Game Over ! (*｀へ´*)");
+}
