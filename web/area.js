@@ -146,3 +146,42 @@ function gameOver()
     clearInterval(setIntervalReturn);
     alert("Game Over ! (*｀へ´*)");
 }
+
+var topSpeedMode;
+function topSpeed()  //极速模式
+{
+    start();
+    topSpeedMode = true;
+}
+
+function switchKeyCode(Code)  //监控方向键
+{
+    switch (Code)
+    {
+        /*方向键*/
+        case 37:
+            if (oldKeyCode != 65 && oldKeyCode != 68 && oldKeyCode != 37 && oldKeyCode != 39) {
+                dir[0] = -1;
+                dir[1] = 0;
+            }
+            break;
+        case 38:
+            if (oldKeyCode != 87 && oldKeyCode != 83 && oldKeyCode != 38 && oldKeyCode != 40) {
+                dir[0] = 0;
+                dir[1] = -1;
+            }
+            break;
+        case 39:
+            if (oldKeyCode != 65 && oldKeyCode != 68 && oldKeyCode != 37 && oldKeyCode != 39) {
+                dir[0] = 1;
+                dir[1] = 0;
+            }
+            break;
+        case 40:
+            if (oldKeyCode != 87 && oldKeyCode != 83 && oldKeyCode != 38 && oldKeyCode != 40) {
+                dir[0] = 0;
+                dir[1] = 1;
+            }
+            break;
+    }
+}
