@@ -68,3 +68,63 @@ function originalBodyAndFood()  //先造出3个长度和食物
     for (var i=1; i<3; i++)
         setTimeout("growing()", speed*i);
 }
+
+function show()  //显示游戏区域
+{
+    var innerhtml = "";
+    for (var i=0; i<y; i++)
+    {
+        innerhtml += "<div>";
+        for (var j=0; j<x-1; j++)
+        {
+            innerhtml += "<input type='button' class='button0' value=' ' />";
+        }
+        innerhtml += "<input type='button' class='button0' value=' ' /></div>";
+    }
+    document.getElementById("area").innerHTML = innerhtml;
+}
+
+function creatFood()  //随机造食物
+{
+    var food_x, food_y;
+    var needFood = true;  //需要造出一个食物
+
+    while (needFood)
+    {
+        food_x = Math.floor(Math.random()*x);
+        food_y = Math.floor(Math.random()*y);
+        if (! (gameArea[food_y][food_x].isBody || gameArea[food_y][food_x].isHead || gameArea[food_y][food_x].isFood))  //此位置不是蛇
+        {
+            gameArea[food_y][food_x].isFood = true;
+            gameArea[food_y][food_x].getHTML().style.backgroundColor = foodColor;
+            needFood = false;
+        }
+    }
+}
+
+function bodyMoveOn()  //运动时身体的前进
+{
+    if (!ifGrowing)  //没长身体才能删掉尾巴
+    {
+        snake[snake.length-1].getHTML().style.backgroundColor = areaColor;
+        gameArea[snake[snake.length-1].y][snake[snake.length-1].x].isBody = false;
+    }
+    else
+        ifGrowing = false;
+
+    for (var i=snake.length-1; i>0; i--)
+    {
+        snake[i].x = snake[i-1].x;
+        snake[i].y = snake[i-1].y;
+    }
+
+    /*原头部不再是头部，而是身体*/
+    gameArea[snake[0].y][snake[0].x].isHead = false;
+    gameArea[snake[0].y][snake[0].x].isBody = true;
+    snake[0].getHTML().style.backgroundColor = snakeColor;
+
+    snake[0].x += dir[0];
+    snake[0].y += dir[1];
+    gameArea[snake[0].y][snake[0].x].isHead = true;
+    snake[0].getHTML().style.backgroundColor = headColor;
+}
