@@ -74,3 +74,15 @@ function growing()  //长大
     ifGrowing = true;  //就不可减去尾巴
 }
 
+var oldKeyCode;  //记录原来方向
+var pressWating;  //防止方向键被快速按多次
+document.onkeydown = function(e)
+{
+    if (pressWating)
+    {
+        pressWating = false;
+        switchKeyCode(e.keyCode);
+        oldKeyCode = e.keyCode;
+    }
+    setTimeout("pressWating = true", speed/2);
+}
